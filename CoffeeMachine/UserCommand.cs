@@ -13,10 +13,13 @@
         public int NbrOfSugars { get; }
         public bool WithStick { get; }
 
-        public UserCommand(DrinkType drinkType, int nbrOfSugars)
+        public double InsertedMoney { get; }
+
+        public UserCommand(DrinkType drinkType, int nbrOfSugars, double insertedMoney)
         {
             DrinkType = drinkType;
             NbrOfSugars = nbrOfSugars;
+            InsertedMoney = insertedMoney;
             WithStick = nbrOfSugars != 0;
         }
     }
