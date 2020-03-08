@@ -47,11 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrinkMakerInterpreter.cs" />
+    <Compile Include="Drinks\ChocoExtraHot.cs" />
+    <Compile Include="Drinks\Chocolate.cs" />
+    <Compile Include="Drinks\Coffee.cs" />
+    <Compile Include="Drinks\CoffeeExtraHot.cs" />
+    <Compile Include="Drinks\IDrink.cs" />
+    <Compile Include="Drinks\OrangeJuice.cs" />
+    <Compile Include="Drinks\Tea.cs" />
+    <Compile Include="Drinks\TeaExtraHot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

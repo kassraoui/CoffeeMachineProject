@@ -1,17 +1,39 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using CoffeeMachine.Drinks;
+using NUnit.Framework;
 
 namespace CoffeeMachine.UnitTests
 {
     [TestFixture]
     public class InterpreterTests
     {
-        [TestCase(DrinkType.T, 1, 1, "T:1:0")]
-        [TestCase(DrinkType.H, 0, 1, "H::")]
-        [TestCase(DrinkType.C, 2, 1, "C:2:0")]
-        [TestCase(DrinkType.C, 2, 0.1, "M:Please insert 0.5 €")]
-        public void Test1(DrinkType drinkType, int nbrOfSugars, double money, string expected)
+        private IDictionary<string, IDrink> _allDrinks;
+        [SetUp]
+        public void Init()
         {
-            var userCommand = new UserCommand(drinkType, nbrOfSugars, money);
+            _allDrinks = new Dictionary<string, IDrink>
+            {
+                {"coffee", new Coffee()},
+                {"tea", new Tea()},
+                {"choco", new Chocolate()},
+                {"orange", new OrangeJuice()},
+                {"coffeeEH", new CoffeeExtraHot()},
+                {"teaEH", new TeaExtraHot()},
+                {"chocoEH", new ChocoExtraHot()},
+            };
+        }
+
+        [TestCase("tea", 1, 1, "T:1:0")]
+        [TestCase("choco", 0, 1, "H::")]
+        [TestCase("coffee", 2, 1, "C:2:0")]
+        [TestCase("coffee", 2, 0.1, "M:Please insert 0.5 €")]
+        [TestCase("orange", 0, 1, "O::")]
+        [TestCase("coffeeEH", 0, 1, "Ch::")]
+        [TestCase("chocoEH", 1, 1, "Hh:1:0")]
+        [TestCase("teaEH", 2, 1, "Th:2:0")]
+        public void Test1(string drink, int nbrOfSugars, double money, string expected)
+        {
+            var userCommand = new UserCommand(_allDrinks[drink], nbrOfSugars, money);
             Assert.AreEqual(expected, DrinkMakerInterpreter.Send(userCommand));
         }
     }

@@ -1,23 +1,18 @@
-﻿namespace CoffeeMachine
-{
-    public enum DrinkType
-    {
-        C,
-        H,
-        T
-    }
+﻿using CoffeeMachine.Drinks;
 
+namespace CoffeeMachine
+{
     public class UserCommand
     {
-        public DrinkType DrinkType { get; }
+        public IDrink Drink { get; }
         public int NbrOfSugars { get; }
         public bool WithStick { get; }
 
         public double InsertedMoney { get; }
 
-        public UserCommand(DrinkType drinkType, int nbrOfSugars, double insertedMoney)
+        public UserCommand(IDrink drink, int nbrOfSugars, double insertedMoney)
         {
-            DrinkType = drinkType;
+            Drink = drink;
             NbrOfSugars = nbrOfSugars;
             InsertedMoney = insertedMoney;
             WithStick = nbrOfSugars != 0;
