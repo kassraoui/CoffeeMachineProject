@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CoffeeMachine.Tools;
 
 namespace CoffeeMachine
 {
     public class DrinkMakerInterpreter
     {
         private readonly IList<UserCommand> _allCommands;
+        private readonly IBeverageQuantityChecker beverageQuantityChecker;
+        private readonly IEmailNotifier emailNotifier;
 
-        public DrinkMakerInterpreter()
+        public DrinkMakerInterpreter(IEmailNotifier emailNotifier, IBeverageQuantityChecker beverageQuantityChecker)
         {
+            this.emailNotifier = emailNotifier;
+            this.beverageQuantityChecker = beverageQuantityChecker;
             _allCommands = new List<UserCommand>();
         }
 
