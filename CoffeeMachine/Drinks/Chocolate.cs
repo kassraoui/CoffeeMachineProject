@@ -4,6 +4,7 @@
     {
         public virtual string ShortName => "H";
         public virtual string LongName => "Chocolate";
+        public string NeededBeverage => "Milk";
         public double Cost => 0.5;
     }
 }

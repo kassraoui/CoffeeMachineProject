@@ -7,13 +7,13 @@ namespace CoffeeMachine
     public class DrinkMakerInterpreter
     {
         private readonly IList<UserCommand> _allCommands;
-        private readonly IBeverageQuantityChecker beverageQuantityChecker;
-        private readonly IEmailNotifier emailNotifier;
+        private readonly IBeverageQuantityChecker _beverageQuantityChecker;
+        private readonly IEmailNotifier _emailNotifier;
 
         public DrinkMakerInterpreter(IEmailNotifier emailNotifier, IBeverageQuantityChecker beverageQuantityChecker)
         {
-            this.emailNotifier = emailNotifier;
-            this.beverageQuantityChecker = beverageQuantityChecker;
+            _emailNotifier = emailNotifier;
+            _beverageQuantityChecker = beverageQuantityChecker;
             _allCommands = new List<UserCommand>();
         }
 
@@ -25,6 +25,12 @@ namespace CoffeeMachine
         }
         public string Send(UserCommand userCommand)
         {
+            if (_beverageQuantityChecker.IsEmpty(userCommand.Drink.NeededBeverage))
+            {
+                _emailNotifier.NotifyMissingDrink(userCommand.Drink.NeededBeverage);
+                return $"M:There is a shortage in {userCommand.Drink.NeededBeverage}. A notification has been sent to the company";
+            }
+
             _allCommands.Add(userCommand);
             var sugarsString = userCommand.NbrOfSugars == 0 ? string.Empty : userCommand.NbrOfSugars.ToString();
             var sticksString = userCommand.WithStick ? "0" : string.Empty;

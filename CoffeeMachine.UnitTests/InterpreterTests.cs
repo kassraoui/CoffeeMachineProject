@@ -62,6 +62,7 @@ namespace CoffeeMachine.UnitTests
         public void SendAlertIfShortage()
         {
             _beverageChecker.Setup(c => c.IsEmpty("Milk")).Returns(true);
+            _beverageChecker.Setup(c => c.IsEmpty("Water")).Returns(false);
             var interpreter = new DrinkMakerInterpreter(_emailNotifierMock.Object, _beverageChecker.Object);
 
             const string expectedMsgForMilk = "M:There is a shortage in Milk. A notification has been sent to the company";
